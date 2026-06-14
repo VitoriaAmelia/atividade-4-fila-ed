@@ -9,11 +9,9 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcao;
-
         do {
             exibirMenuPrincipal();
             opcao = lerInteiro(scanner, "Escolha uma opcao: ");
-
             switch (opcao) {
                 case 1:
                     executarExercicio01();
@@ -37,10 +35,8 @@ public class App {
                     System.out.println("Opcao invalida.");
                     break;
             }
-
             System.out.println();
         } while (opcao != 0);
-
         scanner.close();
     }
 
@@ -57,63 +53,151 @@ public class App {
     private static int lerInteiro(Scanner scanner, String mensagem) {
         while (true) {
             System.out.print(mensagem);
-
             if (scanner.hasNextInt()) {
                 int valor = scanner.nextInt();
                 scanner.nextLine();
                 return valor;
             }
-
             System.out.println("Entrada invalida. Digite um numero inteiro.");
             scanner.nextLine();
         }
     }
 
+    // ex1
     private static void executarExercicio01() {
-
-    }
-
-    private static void executarExercicio02() {
-
-    }
-
-    private static void executarExercicio03(Scanner scanner) {
-
-    }
-
-    private static void executarExercicio04(Scanner scanner) {
-
-    }
-
-    private static void executarExercicio05(Scanner scanner) {
-
+        Queue<Integer> fila = criarFilaValoresFixos();
+        System.out.println("Fila criada: " + fila);
+        fila.poll();
+        System.out.println("Fila depois de remover o primeiro elemento: " + fila);
     }
 
     public static Queue<Integer> criarFilaValoresFixos() {
-        return null;
+        Queue<Integer> fila = new LinkedList<>();
+        fila.add(10);
+        fila.add(20);
+        fila.add(30);
+        fila.add(40);
+        fila.add(50);
+        return fila;
+    }
+
+    // ex2
+    private static void executarExercicio02() {
+        Queue<String> fila = criarFilaNomes();
+        System.out.println("Primeiro elemento da fila: " + fila.peek());
+        System.out.println("Quantidade de elementos: " + fila.size());
     }
 
     public static Queue<String> criarFilaNomes() {
-        return null;
+        Queue<String> fila = new LinkedList<>();
+        fila.add("Ana");
+        fila.add("Carlos");
+        fila.add("Pedro");
+        fila.add("Juliana");
+        return fila;
+    }
+
+    // ex3
+   
+    private static void executarExercicio03(Scanner scanner) {
+        Queue<Integer> fila = new LinkedList<>();
+        for (int i = 1; i <= 10; i++) {
+            int valor = lerInteiro(scanner, "Numero " + i + ": ");
+            fila.add(valor);
+        }
+        System.out.println("Removendo elementos em ordem FIFO:");
+        List<Integer> removidos = removerTodosElementos(fila);
+        for (Integer elemento : removidos) {
+            System.out.println("Removido: " + elemento);
+        }
     }
 
     public static List<Integer> removerTodosElementos(Queue<Integer> fila) {
-        return null;
+        List<Integer> removidos = new ArrayList<>();
+        while (!fila.isEmpty()) {
+            removidos.add(fila.poll());
+        }
+        return removidos;
+    }
+
+    // ex4
+    private static void executarExercicio04(Scanner scanner) {
+        Queue<String> fila = new LinkedList<>();
+        int qtd = lerInteiro(scanner, "Quantos clientes deseja cadastrar? ");
+        for (int i = 1; i <= qtd; i++) {
+            System.out.print("Nome do cliente " + i + ": ");
+            String nome = scanner.nextLine().trim();
+            while (nome.isEmpty()) {
+                System.out.print("Nome invalido. Digite novamente: ");
+                nome = scanner.nextLine().trim();
+            }
+            fila.add(nome);
+        }
+        List<String> atendidos = atenderClientes(fila);
+        System.out.println("Clientes atendidos: " + atendidos);
+        System.out.println("Proximo cliente da fila: " + fila.peek());
+        System.out.println("Fila completa: " + fila);
     }
 
     public static List<String> atenderClientes(Queue<String> fila) {
-        return null;
+        List<String> atendidos = new ArrayList<>();
+        while (!fila.isEmpty()) {
+            atendidos.add(fila.poll());
+        }
+        return atendidos;
+    }
+
+    // ex5
+  
+    private static void executarExercicio05(Scanner scanner) {
+        Queue<String> fila = new LinkedList<>();
+        int opcao;
+        do {
+            System.out.println("--- Fila de Impressao ---");
+            System.out.println("1 - Adicionar documento");
+            System.out.println("2 - Imprimir proximo documento");
+            System.out.println("3 - Mostrar proximo documento");
+            System.out.println("4 - Exibir documentos pendentes");
+            System.out.println("0 - Voltar");
+            opcao = lerInteiro(scanner, "Escolha: ");
+            switch (opcao) {
+                case 1:
+                    System.out.print("Nome do documento: ");
+                    String doc = scanner.nextLine().trim();
+                    while (doc.isEmpty()) {
+                        System.out.print("Nome invalido. Digite novamente: ");
+                        doc = scanner.nextLine().trim();
+                    }
+                    adicionarDocumento(fila, doc);
+                    break;
+                case 2:
+                    String impresso = imprimirDocumento(fila);
+                    System.out.println(impresso);
+                    break;
+                case 3:
+                    String proximo = proximoDocumento(fila);
+                    System.out.println(proximo);
+                    break;
+                case 4:
+                    System.out.println(fila);
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opcao invalida.");
+            }
+        } while (opcao != 0);
     }
 
     public static void adicionarDocumento(Queue<String> fila, String documento) {
-
+        fila.add(documento);
     }
 
     public static String imprimirDocumento(Queue<String> fila) {
-        return null;
+        return fila.poll();
     }
 
     public static String proximoDocumento(Queue<String> fila) {
-        return null;
+        return fila.peek();
     }
 }
