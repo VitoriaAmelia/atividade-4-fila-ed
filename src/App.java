@@ -58,7 +58,7 @@ public class App {
                 scanner.nextLine();
                 return valor;
             }
-            System.out.println("Inválido! Digite um numero inteiro.");
+            System.out.println("Entrada invalida. Digite um numero inteiro.");
             scanner.nextLine();
         }
     }
@@ -66,7 +66,7 @@ public class App {
     // ex1
     private static void executarExercicio01() {
         Queue<Integer> fila = criarFilaValoresFixos();
-        System.out.println("Fila completa: " + fila);
+        System.out.println("Fila criada: " + fila);
         fila.poll();
         System.out.println("Fila depois de remover o primeiro elemento: " + fila);
     }
@@ -105,7 +105,7 @@ public class App {
             int valor = lerInteiro(scanner, "Numero " + i + ": ");
             fila.add(valor);
         }
-        System.out.println("Removendo elementos em comportamento FIFO:");
+        System.out.println("Removendo elementos em ordem FIFO:");
         List<Integer> removidos = removerTodosElementos(fila);
         for (Integer elemento : removidos) {
             System.out.println("Removido: " + elemento);
