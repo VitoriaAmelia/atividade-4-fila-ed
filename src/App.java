@@ -120,7 +120,7 @@ public class App {
         return removidos;
     }
 
-    // ex4
+    // ex4!
     private static void executarExercicio04(Scanner scanner) {
         Queue<String> fila = new LinkedList<>();
         int qtd = lerInteiro(scanner, "Quantos clientes deseja cadastrar? ");
