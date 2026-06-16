@@ -41,7 +41,7 @@ public class App {
     }
 
     private static void exibirMenuPrincipal() {
-        System.out.println("=== Exercicios com Fila ===");
+        System.out.println("== Exercicios com Fila ==");
         System.out.println("1 - Fila com valores fixos");
         System.out.println("2 - Fila de nomes");
         System.out.println("3 - Remover 10 numeros da fila");
@@ -66,7 +66,7 @@ public class App {
     // ex1
     private static void executarExercicio01() {
         Queue<Integer> fila = criarFilaValoresFixos();
-        System.out.println("Fila criada: " + fila);
+        System.out.println("Fila completa: " + fila);
         fila.poll();
         System.out.println("Fila depois de remover o primeiro elemento: " + fila);
     }
@@ -105,10 +105,10 @@ public class App {
             int valor = lerInteiro(scanner, "Numero " + i + ": ");
             fila.add(valor);
         }
-        System.out.println("Removendo elementos em ordem FIFO:");
+        System.out.println("Remoção de elementos em ordem FIFO:");
         List<Integer> removidos = removerTodosElementos(fila);
         for (Integer elemento : removidos) {
-            System.out.println("Removido: " + elemento);
+            System.out.println("Número removido: " + elemento);
         }
     }
 
@@ -123,20 +123,49 @@ public class App {
     // ex4!!
     private static void executarExercicio04(Scanner scanner) {
         Queue<String> fila = new LinkedList<>();
-        int qtd = lerInteiro(scanner, "Quantos clientes deseja cadastrar? ");
-        for (int i = 1; i <= qtd; i++) {
-            System.out.print("Nome do cliente " + i + ": ");
-            String nome = scanner.nextLine().trim();
-            while (nome.isEmpty()) {
-                System.out.print("Nome invalido. Digite novamente: ");
-                nome = scanner.nextLine().trim();
+        int opcao;
+        do {
+            System.out.println("\n=== Fila de Atendimento ===");
+            System.out.println("1 - Cadastrar cliente");
+            System.out.println("2 - Atender primeiro cliente da fila");
+            System.out.println("3 - Mostrar proximo cliente");
+            System.out.println("4 - Exibir fila completa");
+            System.out.println("0 - Voltar");
+            opcao = lerInteiro(scanner, "Opcao: ");
+            switch (opcao) {
+                case 1:
+                    System.out.print("Nome do cliente: ");
+                    String nome = scanner.nextLine().trim();
+                    while (nome.isEmpty()) {
+                        System.out.print("Inválido!! Digite novamente: ");
+                        nome = scanner.nextLine().trim();
+                    }
+                    fila.add(nome);
+                    System.out.println("Cliente cadastrado!");
+                    break;
+                case 2:
+                    if (!fila.isEmpty()) {
+                        System.out.println("Atender: " + fila.poll());
+                    } else {
+                        System.out.println("Fila vazia!");
+                    }
+                    break;
+                case 3:
+                    if (!fila.isEmpty()) {
+                        System.out.println("Proximo cliente: " + fila.peek());
+                    } else {
+                        System.out.println("Fila vazia!");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Fila completa: " + fila);
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opcao invalida.");
             }
-            fila.add(nome);
-        }
-        List<String> atendidos = atenderClientes(fila);
-        System.out.println("Clientes atendidos: " + atendidos);
-        System.out.println("Proximo cliente da fila: " + fila.peek());
-        System.out.println("Fila completa: " + fila);
+        } while (opcao != 0);
     }
 
     public static List<String> atenderClientes(Queue<String> fila) {
@@ -155,7 +184,7 @@ public class App {
         do {
             System.out.println("--- Fila de Impressao ---");
             System.out.println("1 - Adicionar documento");
-            System.out.println("2 - Imprimir proximo documento");
+            System.out.println("2 - Imprimir primeiro documento");
             System.out.println("3 - Mostrar proximo documento");
             System.out.println("4 - Exibir documentos pendentes");
             System.out.println("0 - Voltar");
@@ -165,18 +194,24 @@ public class App {
                     System.out.print("Nome do documento: ");
                     String doc = scanner.nextLine().trim();
                     while (doc.isEmpty()) {
-                        System.out.print("Nome invalido. Digite novamente: ");
+                        System.out.print("INválido!. Digite novamente: ");
                         doc = scanner.nextLine().trim();
                     }
                     adicionarDocumento(fila, doc);
                     break;
                 case 2:
-                    String impresso = imprimirDocumento(fila);
-                    System.out.println(impresso);
+                    if (!fila.isEmpty()) {
+                        System.out.println("Imprimindo: " + imprimirDocumento(fila));
+                    } else {
+                        System.out.println("Fila vazia!");
+                    }
                     break;
                 case 3:
-                    String proximo = proximoDocumento(fila);
-                    System.out.println(proximo);
+                    if (!fila.isEmpty()) {
+                        System.out.println("Proximo: " + proximoDocumento(fila));
+                    } else {
+                        System.out.println("Fila vazia!");
+                    }
                     break;
                 case 4:
                     System.out.println(fila);
