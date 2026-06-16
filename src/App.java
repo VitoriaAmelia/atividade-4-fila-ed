@@ -143,7 +143,7 @@ public class App {
                 fila.add(nome);
                 break;
             case 2:
-                System.out.println("Atender: " + fila.poll());
+                System.out.println("Atendendo: " + fila.poll());
                 break;
             case 3:
                 System.out.println("Proximo cliente: " + fila.peek());
